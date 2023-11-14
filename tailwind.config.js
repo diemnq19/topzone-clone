@@ -5,7 +5,15 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "normal-bg-color": "#3e3e3f",
+        "dark-bg-color": "#101010",
+      },
+      backgroundImage: {
+        "logo-image": "url(./assets/logo.png)",
+      },
+    },
   },
   plugins: [],
 };

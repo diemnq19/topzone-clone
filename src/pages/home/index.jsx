@@ -1,8 +1,11 @@
 import React from 'react'
+import CustomLayout from '../../components/customLayout'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <CustomLayout>
+      
+    </CustomLayout>
   )
 }
 
