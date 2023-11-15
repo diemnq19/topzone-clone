@@ -18,25 +18,25 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status !== 401) {
+    if (error.status !== 401) {
       return Promise.reject(error);
     }
   }
 );
 
 export const sendGet = (url, params) =>
-  axiosInstance.get(url, { params }).then((res) => res.data);
+  axiosInstance.get(url, { params }).then((res) => res);
 
 export const sendPost = (url, params, queryParams) =>
   axiosInstance
     .post(url, params, { params: queryParams })
-    .then((res) => res.data);
+    .then((res) => res);
 
 export const sendPut = (url, params) =>
-  axiosInstance.put(url, params).then((res) => res.data);
+  axiosInstance.put(url, params).then((res) => res);
 
 export const sendPatch = (url, params) =>
-  axiosInstance.patch(url, params).then((res) => res.data);
+  axiosInstance.patch(url, params).then((res) => res);
 
 export const sendDelete = (url, params) =>
-  axiosInstance.delete(url, { params }).then((res) => res.data);
+  axiosInstance.delete(url, { params }).then((res) => res);

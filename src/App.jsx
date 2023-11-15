@@ -35,9 +35,27 @@ const router = createBrowserRouter(
   )
 );
 
+const theme = {
+  token: {
+    colorPrimary: "#101010",
+  },
+  components: {
+    Form: {
+      labelFontSize: "1rem",
+    },
+    Button: {
+      colorPrimaryHover: "#3e3e3f",
+    },
+    Input: {
+      activeBorderColor: "#101010",
+      hoverBorderColor: "#3e3e3f",
+    },
+  },
+};
+
 function App() {
   return (
-    <AntdConfigProvider>
+    <AntdConfigProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <RouterProvider router={router} />

@@ -11,7 +11,8 @@ export default {
         "dark-bg-color": "#101010",
       },
       backgroundImage: {
-        "logo-image": "url(./assets/logo.png)",
+        "logo-image": "url('./assets/logo.png')",
+        "topzone-image": "url('./assets/logo-image.webp')"
       },
     },
   },
