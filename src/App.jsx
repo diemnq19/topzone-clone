@@ -13,6 +13,7 @@ import Home from "./pages/home";
 import ErrorPage from "./pages/error";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Admin from "./pages/admin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,9 +28,11 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      <Route path="/admin" element={<Admin />} />
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/iphone" element={<Home />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
