@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const MenuCard = () => {
     const navigate = useNavigate()
   return (
-    <div className="flex flex-wrap w-full justify-center gap-4 py-20">
+    <div className="flex flex-wrap w-full justify-center gap-4 pb-20">
       {CardData.map((data, index) => (
         <Card
           key={index}
