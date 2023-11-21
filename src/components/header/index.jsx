@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import UserControl from "../userControl";
 import { useNavigate } from "react-router-dom";
 import Cart from "../cart";
+import Menu from "../menu";
 
 const { Header } = Layout;
 const CustomHeader = () => {
@@ -13,7 +14,7 @@ const CustomHeader = () => {
         {/* logo */}
         <div className="bg-logo-image bg-no-repeat bg-left-top bg-cover h-12 w-32 cursor-pointer" onClick={() => navigate("/")}></div>
         {/* menu */}
-        <div></div>
+        <Menu />
         {/* cart & user control */}
         <div className="flex items-center">
             {/* cart */}
