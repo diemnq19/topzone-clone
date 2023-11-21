@@ -16,4 +16,24 @@ body {
     font-size: 1rem;
 }
 
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+    font-size: 20px;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    padding: 12px;
+    border-radius: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
+.ant-carousel .slick-prev {
+    left: -60px;
+}
+
+.ant-carousel .slick-next {
+    right: -60px;
+}
