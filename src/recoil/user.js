@@ -7,9 +7,18 @@ const { persistAtom } = recoilPersist({
   converter: JSON,
 });
 
+export const initialUserState = {
+  id: "",
+  email: "",
+  name: "",
+  address: "",
+  phone: "",
+  email_verified_at: "",
+};
+
 const userAtom = atom({
   key: "userAtomState",
-  default: [],
+  default: initialUserState,
   effects_UNSTABLE: [persistAtom],
 });
 

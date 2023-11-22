@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../api/auth";
 import { useSetRecoilState } from "recoil";
 import userAtom from "../../recoil/user";
+import Cookies from "js-cookie";
 
 const initialValues = {
   email: "",
@@ -23,6 +24,7 @@ const FormLogin = () => {
       if (res.status === 200) {
         setUserState(res.data.user);
         setLoading(false);
+        Cookies.set("token", res.data.token);
         navigate("/");
       }
     } catch (error) {
