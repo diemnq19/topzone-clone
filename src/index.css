@@ -16,6 +16,10 @@ body {
     font-size: 1rem;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .ant-carousel .slick-prev,
 .ant-carousel .slick-next,
 .ant-carousel .slick-prev:hover,

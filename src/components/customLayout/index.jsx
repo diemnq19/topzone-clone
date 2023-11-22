@@ -1,6 +1,7 @@
 import React from "react";
 import CustomHeader from "../header";
 import CustomFooter from "../footer";
+import ScrollToTop from "../scrollToTop";
 
 const CustomLayout = ({ children }) => {
   return (
@@ -8,6 +9,7 @@ const CustomLayout = ({ children }) => {
       <CustomHeader />
       {children}
       <CustomFooter />
+      <ScrollToTop />
     </div>
   );
 };

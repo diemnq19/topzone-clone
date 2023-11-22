@@ -119,10 +119,28 @@ const FormRegister = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item label="Address" name="address">
+        <Form.Item
+          label="Address"
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: "Please input your address!",
+            },
+          ]}
+        >
           <Input spellCheck="false" />
         </Form.Item>
-        <Form.Item label="Phone number" name="phone">
+        <Form.Item
+          label="Phone number"
+          name="phone"
+          rules={[
+            {
+              required: true,
+              message: "Please input your phone number!",
+            },
+          ]}
+        >
           <Input spellCheck="false" />
         </Form.Item>
         <Form.Item

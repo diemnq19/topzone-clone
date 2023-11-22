@@ -3,9 +3,17 @@ import { UserOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import userAtom, { initialUserState } from "../../recoil/user";
 
 const UserControl = () => {
   const isAuth = Cookies.get("token");
+  const setUserState = useSetRecoilState(userAtom)
+
+  const handleLogout = () => {
+    setUserState(initialUserState)
+    Cookies.remove("token")
+  }
   const items = [
     {
       key: "1",
@@ -17,7 +25,7 @@ const UserControl = () => {
     },
     {
       key: "3",
-      label: <Link to="/">Logout</Link>,
+      label: <Link to="/" onClick={handleLogout}>Logout</Link>,
     },
   ];
 
@@ -34,9 +42,11 @@ const UserControl = () => {
         </div>
       )}
       {isAuth && (
-        <Dropdown menu={{ items }}>
-          <Avatar icon={<UserOutlined />} className="cursor-pointer" />
-        </Dropdown>
+        <div className="pb-0">
+          <Dropdown menu={{ items }}>
+            <Avatar icon={<UserOutlined />} className="cursor-pointer text-xl" />
+          </Dropdown>
+        </div>
       )}
     </div>
   );
