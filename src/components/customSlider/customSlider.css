@@ -1,8 +1,6 @@
-
 .custom-slider.ant-carousel .slick-prev {
     left: 20px;
-    color: red;
-    background-color: red;
+    z-index: 999;
 }
 
 .custom-slider.ant-carousel .slick-next {

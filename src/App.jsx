@@ -14,6 +14,7 @@ import ErrorPage from "./pages/error";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Admin from "./pages/admin";
+import ProductType from "./pages/productType";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +33,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/iphone" element={<Home />} />
+      <Route path="/iphone" element={<ProductType />} />
+      <Route path="/ipad" element={<ProductType />} />
+      <Route path="/mac" element={<ProductType />} />
+      <Route path="/sound" element={<ProductType />} />
+      <Route path="/accessory" element={<ProductType />} />
+      <Route path="/watch" element={<ProductType />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
