@@ -15,6 +15,8 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Admin from "./pages/admin";
 import ProductType from "./pages/productType";
+import Product from "./pages/product";
+import CartCustom from "./pages/cart";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,6 +41,13 @@ const router = createBrowserRouter(
       <Route path="/sound" element={<ProductType />} />
       <Route path="/accessory" element={<ProductType />} />
       <Route path="/watch" element={<ProductType />} />
+      <Route path="/iphone/:id" element={<Product />} />
+      <Route path="/ipad/:id" element={<Product />} />
+      <Route path="/mac/:id" element={<Product />} />
+      <Route path="/sound/:id" element={<Product />} />
+      <Route path="/accessory/:id" element={<Product />} />
+      <Route path="/watch/:id" element={<Product />} />
+      <Route path="/cart" element={<CartCustom />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
@@ -59,6 +68,14 @@ const theme = {
       activeBorderColor: "#101010",
       hoverBorderColor: "#3e3e3f",
     },
+    InputNumber: {
+      activeBg: "#fff",
+      hoverBg: "#fff",
+    },
+    Table: {
+      rowSelectedBg: 'rgba(0, 0, 0, 0.2)',
+      rowSelectedHoverBg: 'rgba(0, 0, 0, 0.4)'
+    }
   },
 };
 

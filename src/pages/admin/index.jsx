@@ -1,7 +1,8 @@
 import { Button, Form, Input, InputNumber, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { createProduct } from "../../api/product";
+import { createProduct, getBrand } from "../../api/product";
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const initialValues = {
   name: "",
@@ -10,20 +11,29 @@ const initialValues = {
   brand_id: null,
   image: null,
   percent_discount: null,
+  unit: "$",
 };
 
-const options = [
-  { label: "Brand 1", value: 1 },
-  { label: "Brand 2", value: 2 },
-  { label: "Brand 3", value: 3 },
-  { label: "Brand 4", value: 4 },
-  { label: "Brand 5", value: 5 },
-];
+const getBrands = async () => {
+  const res = await getBrand();
+  return res.data;
+};
 
 const Admin = () => {
   const [form] = Form.useForm();
   const [images, setImages] = useState([]);
-  const [brandID, setBrandID] = useState(options[0].value);
+  const [brandID, setBrandID] = useState(null);
+
+  const {
+    data: brands,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["getBrands"],
+    queryFn: getBrands,
+    refetchOnWindowFocus: false,
+  });
 
   const submitForm = async (values) => {
     try {
@@ -36,6 +46,7 @@ const Admin = () => {
         formData.append("image", image);
       });
       formData.append("brand_id", brandID);
+      formData.append("unit", values.unit);
       const res = await createProduct(formData);
       console.log(res);
     } catch (error) {
@@ -111,6 +122,18 @@ const Admin = () => {
           <InputNumber />
         </Form.Item>
         <Form.Item
+          label="Unit"
+          name="unit"
+          rules={[
+            {
+              required: true,
+              message: "Please input unit price of product!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="Brand id"
           name="brand_id"
           rules={[
@@ -121,9 +144,13 @@ const Admin = () => {
           ]}
         >
           <Select
-            options={options}
+            options={brands?.map((brand) => ({
+              label: brand?.name,
+              value: brand?.id,
+            }))}
             onChange={handleChangeBrand}
             value={brandID}
+            loading={isLoading}
           />
         </Form.Item>
         <Form.Item
