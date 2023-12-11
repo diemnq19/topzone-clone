@@ -9,7 +9,7 @@ const { Header } = Layout;
 const CustomHeader = () => {
     const navigate = useNavigate()
   return (
-    <Header className="bg-dark-bg-color px-4">
+    <Header className="bg-dark-bg-color px-4 sticky top-0 z-[100000]">
       <div className="flex items-center justify-between mx-auto max-w-[1280px] h-full">
         {/* logo */}
         <div className="bg-logo-image bg-no-repeat bg-left-top bg-cover h-12 w-32 cursor-pointer" onClick={() => navigate("/")}></div>
