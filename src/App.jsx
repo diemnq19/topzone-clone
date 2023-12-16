@@ -17,6 +17,9 @@ import Admin from "./pages/admin";
 import ProductType from "./pages/productType";
 import Product from "./pages/product";
 import CartCustom from "./pages/cart";
+import Checkout from "./pages/checkout";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import configs from "./config";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +51,7 @@ const router = createBrowserRouter(
       <Route path="/accessory/:id" element={<Product />} />
       <Route path="/watch/:id" element={<Product />} />
       <Route path="/cart" element={<CartCustom />} />
+      <Route path="/checkout" element={<Checkout />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
@@ -73,23 +77,27 @@ const theme = {
       hoverBg: "#fff",
     },
     Table: {
-      rowSelectedBg: 'rgba(0, 0, 0, 0.2)',
-      rowSelectedHoverBg: 'rgba(0, 0, 0, 0.4)'
-    }
+      rowSelectedBg: "rgba(0, 0, 0, 0.2)",
+      rowSelectedHoverBg: "rgba(0, 0, 0, 0.4)",
+    },
   },
 };
 
 function App() {
   return (
-    <AntdConfigProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <RouterProvider router={router} />
-          <Suspense fallback={null}></Suspense>
-        </RecoilRoot>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </AntdConfigProvider>
+    <PayPalScriptProvider
+      options={{ clientId: configs.CLIENT_ID, currency: "USD" }}
+    >
+      <AntdConfigProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <RecoilRoot>
+            <RouterProvider router={router} />
+            <Suspense fallback={null}></Suspense>
+          </RecoilRoot>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </AntdConfigProvider>
+    </PayPalScriptProvider>
   );
 }
 
