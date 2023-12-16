@@ -26,3 +26,19 @@ export const findCartIDByProductID = (cartData, productID) => {
     return cartData[productIndex].cartID;
   } else return null;
 };
+
+export const convertOrdeData = (cartOrder, cartData) => {
+  const newCartOrder = cartOrder.map((item) => {
+    const data = cartData.findIndex((cartItem) => cartItem.cartID === item);
+    if (data !== -1) return cartData[data];
+  });
+  return newCartOrder;
+};
+
+export const returnCart = (cartOrder, cartData) => {
+  const newCart = cartData.filter((item) => {
+    if (cartOrder.includes(item.cartID)) return;
+    return item;
+  });
+  return newCart;
+};

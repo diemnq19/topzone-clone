@@ -78,7 +78,7 @@ const Product = () => {
   const handleChangeCart = () => {
     if (!isAuth) {
       if (!isInCart) {
-        return setCart([...cart, { ...product, quantity }]);
+        return setCart([...cart, { product, quantity, cartID: product.id }]);
       } else {
         const newCart = cart.filter((item) => item.product.id != productID);
         return setCart(newCart);

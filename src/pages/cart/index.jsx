@@ -14,6 +14,7 @@ import Cookies from "js-cookie";
 import userAtom from "../../recoil/user";
 import { useMutation } from "@tanstack/react-query";
 import { removeProduct, updateCart } from "../../api/cart";
+import { useNavigate } from "react-router-dom";
 
 const updateCartByID = async (payload) => {
   const res = await updateCart(payload);
@@ -26,6 +27,7 @@ const deleteCardByID = async (id) => {
 };
 
 const CartCustom = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useRecoilState(productCartAtom);
   const [productsChange, setProductsChange] = useState(
     cart.map((item) => item.quantity)
@@ -140,7 +142,7 @@ const CartCustom = () => {
       render: (value, record, index) => (
         <div>
           {value}
-          {record.unit}
+          {record.product.unit}
         </div>
       ),
     },
@@ -216,10 +218,20 @@ const CartCustom = () => {
           <div className="w-full pt-12 min-h-[300px]">
             <Table
               columns={columns}
-              dataSource={cart.map((item) => ({ ...item, key: item.id }))}
+              dataSource={cart.map((item) => ({ ...item, key: item.cartID }))}
               pagination={false}
               rowSelection={{ type: "checkbox", ...rowSelection }}
             />
+            <div className="w-full flex justify-end border-t border-black bg-white border-dashed px-8">
+              <Button
+                className="my-4 bg-black border-none"
+                type="primary"
+                disabled={selectedProduct.length === 0}
+                onClick={() => navigate("/checkout")}
+              >
+                Checkout
+              </Button>
+            </div>
           </div>
         </div>
       </div>
