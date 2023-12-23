@@ -61,6 +61,7 @@ const CartCustom = () => {
       const newProductCart = cart.filter(
         (product) => product.cartID != delCart
       );
+      console.log(newProductCart);
       setCart(newProductCart);
       setDelCart(null);
     },
@@ -104,11 +105,12 @@ const CartCustom = () => {
   };
 
   const handleDeleteProduct = (id) => {
-    if (!Cookies.get("token")) {
-      const newProductCart = cart.filter((product) => product.cardID != id);
+    if (!isAuthen) {
+      const newProductCart = cart.filter((product) => product.cartID != id);
       setCart(newProductCart);
+    } else {
+      deleteCart.mutate(id);
     }
-    deleteCart.mutate(id);
   };
 
   const columns = [

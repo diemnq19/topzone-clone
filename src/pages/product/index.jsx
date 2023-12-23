@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomLayout from "../../components/customLayout";
 import { Button, Image, InputNumber, Spin } from "antd";
 import { useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   addResCartData,
   findCartIDByProductID,
 } from "../../function/convertCartData";
+import { FacebookOutlined } from "@ant-design/icons";
 
 const getProductDetail = async (id) => {
   const res = await getProduct(id);
@@ -36,8 +37,6 @@ const Product = () => {
   const user = useRecoilValue(userAtom);
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useRecoilState(productCartAtom);
-  const isInCart =
-    cart.findIndex((item) => item.product.id == productID) !== -1;
 
   const handleChange = (value) => {
     setQuantity(value);
@@ -77,21 +76,21 @@ const Product = () => {
 
   const handleChangeCart = () => {
     if (!isAuth) {
-      if (!isInCart) {
+      if (cart.findIndex((item) => item.product.id == productID) === -1) {
         return setCart([...cart, { product, quantity, cartID: product.id }]);
       } else {
         const newCart = cart.filter((item) => item.product.id != productID);
         return setCart(newCart);
       }
     } else {
-      if (!isInCart) {
+      if (cart.findIndex((item) => item.product.id == productID) === -1) {
         return addProductFnc.mutate({
           user_id: user.id,
           product_id: +productID,
           quantity,
         });
       } else {
-        return removeProductFnc.mutate(productID);
+        return removeProductFnc.mutate(findCartIDByProductID(cart, productID));
       }
     }
   };
@@ -146,8 +145,28 @@ const Product = () => {
                   className="ml-4 bg-cyan-700 border-transparent shadow-none hover:!bg-cyan-400"
                   onClick={handleChangeCart}
                 >
-                  {isInCart ? "Remove from cart" : "Add to cart"}
+                  {cart.findIndex((item) => item.product.id == productID) !== -1
+                    ? "Remove from cart"
+                    : "Add to cart"}
                 </Button>
+              </div>
+
+              <div
+                className="fb-share-button mt-4 text-white bg-blue-600 w-fit p-2 rounded-lg flex items-center gap-2"
+                data-href={`${window.location.href}`}
+                data-layout=""
+                data-size=""
+              >
+                <div className="text-xl">
+                  <FacebookOutlined />
+                </div>
+                <a
+                  target="_blank"
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                  className="fb-xfbml-parse-ignore"
+                >
+                  Share on Facebook
+                </a>
               </div>
             </div>
           </div>
