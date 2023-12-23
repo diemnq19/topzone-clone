@@ -95,7 +95,12 @@ const Product = () => {
     }
   };
 
-  if (isLoading) return <Spin />;
+  if (isLoading)
+    return (
+      <CustomLayout>
+        <Spin />
+      </CustomLayout>
+    );
 
   if (isError) return error;
 
@@ -144,7 +149,9 @@ const Product = () => {
                   type="primary"
                   className="ml-4 bg-cyan-700 border-transparent shadow-none hover:!bg-cyan-400"
                   onClick={handleChangeCart}
-                  loading={addProductFnc.isLoading || removeProductFnc.isLoading}
+                  loading={
+                    addProductFnc.isLoading || removeProductFnc.isLoading
+                  }
                 >
                   {cart.findIndex((item) => item.product.id == productID) !== -1
                     ? "Remove from cart"

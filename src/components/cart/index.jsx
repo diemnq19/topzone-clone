@@ -2,7 +2,12 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Button, Divider, Popover } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { convertCartData } from "../../function/convertCartData";
+import { getUserCart } from "../../api/cart";
 import { useRecoilState, useRecoilValue } from "recoil";
+import userAtom from "../../recoil/user";
+import { useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import productCartAtom from "../../recoil/productCart";
 
 const ProductItemWrap = ({ cart }) => {
@@ -32,9 +37,22 @@ const ProductItemWrap = ({ cart }) => {
   );
 };
 
+const getCartFnc = async (user_id) => {
+  const res = await getUserCart(user_id);
+  return res.data;
+};
+
 const Cart = () => {
-  const [cart, setCart] = useRecoilState(productCartAtom);
   const [count, setCount] = useState(0);
+  const user = useRecoilValue(userAtom);
+  const [cart, setCart] = useRecoilState(productCartAtom);
+  const { data: cartData, isLoading } = useQuery({
+    queryKey: ["getCart", user.id],
+    queryFn: () => getCartFnc(user.id),
+    enabled: !!Cookies.get("token"),
+    refetchOnWindowFocus: false,
+    onSuccess: (value) => setCart(convertCartData(value)),
+  });
 
   useEffect(() => {
     setCount(cart.length);
