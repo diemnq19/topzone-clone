@@ -1,59 +1,48 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getBrand } from "../../api/product";
+import { useQuery } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
+import brandsAtom from "../../recoil/brands";
 
+const getBrands = async () => {
+  const res = await getBrand();
+  return res.data;
+};
 const Menu = () => {
   const location = useLocation();
   const pathRoute = location.pathname.split("/")[1];
+  const setBrandData = useSetRecoilState(brandsAtom);
+
+  const {
+    data: brandData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["getBrand"],
+    queryFn: getBrands,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    onSuccess: (value) => setBrandData(value),
+  });
+
   return (
     <div className="text-base text-white flex items-center">
-      <Link
-        to={"/iphone"}
-        className={`${
-          pathRoute === "iphone" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        iPhone
-      </Link>
-      <Link
-        to={"/mac"}
-        className={`${
-          pathRoute === "mac" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        Mac
-      </Link>
-      <Link
-        to={"/ipad"}
-        className={`${
-          pathRoute === "ipad" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        iPad
-      </Link>
-      <Link
-        to={"/watch"}
-        className={`${
-          pathRoute === "watch" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        Watch
-      </Link>
-      <Link
-        to={"/sound"}
-        className={`${
-          pathRoute === "sound" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        Sound
-      </Link>
-      <Link
-        to={"/accessory"}
-        className={`${
-          pathRoute === "accessory" ? "bg-white/20" : "hover:bg-white/20"
-        } p-6 h-full min-w-[100px] text-center hover:text-white`}
-      >
-        Accessory
-      </Link>
+      {brandData &&
+        brandData?.map((brand) => (
+          <Link
+            key={brand?.id}
+            to={`/${encodeURI(brand?.name.toLowerCase())}`}
+            className={`${
+              decodeURI(pathRoute) === brand?.name.toLowerCase()
+                ? "bg-white/20"
+                : "hover:bg-white/20"
+            } p-6 h-full min-w-[100px] text-center hover:text-white`}
+          >
+            {brand?.name}
+          </Link>
+        ))}
     </div>
   );
 };
