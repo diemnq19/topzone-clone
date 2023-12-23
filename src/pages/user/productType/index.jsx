@@ -1,8 +1,8 @@
 import React from "react";
-import CustomLayout from "../../components/customLayout";
+import CustomLayout from "../../../components/customLayout";
 import { useLocation } from "react-router-dom";
-import { data as imageData } from "../../constant/imageSlider";
-import ContainerBanners from "../../components/containerBanners";
+import { data as imageData } from "../../../constant/imageSlider";
+import ContainerBanners from "../../../components/containerBanners";
 
 const ProductType = () => {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import productCartAtom from "../../recoil/productCart";
-import CustomLayout from "../../components/customLayout";
+import productCartAtom from "../../../recoil/productCart";
+import CustomLayout from "../../../components/customLayout";
 import { Button, InputNumber, Table } from "antd";
 import {
   DeleteOutlined,
@@ -9,11 +9,11 @@ import {
   PlusOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import productSelectAtom from "../../recoil/selectedProduct";
+import productSelectAtom from "../../../recoil/selectedProduct";
 import Cookies from "js-cookie";
-import userAtom from "../../recoil/user";
+import userAtom from "../../../recoil/user";
 import { useMutation } from "@tanstack/react-query";
-import { removeProduct, updateCart } from "../../api/cart";
+import { removeProduct, updateCart } from "../../../api/cart";
 import { useNavigate } from "react-router-dom";
 
 const updateCartByID = async (payload) => {
@@ -58,10 +58,14 @@ const CartCustom = () => {
     mutationKey: ["deleteCart"],
     mutationFn: (payload) => deleteCardByID(payload),
     onSuccess: () => {
+      if (selectedProduct.includes(delCart))
+        setSeletedProduct((pre) => {
+          const newSelected = pre.filter((item) => item != delCart);
+          return newSelected;
+        });
       const newProductCart = cart.filter(
         (product) => product.cartID != delCart
       );
-      console.log(newProductCart);
       setCart(newProductCart);
       setDelCart(null);
     },
@@ -108,6 +112,11 @@ const CartCustom = () => {
     if (!isAuthen) {
       const newProductCart = cart.filter((product) => product.cartID != id);
       setCart(newProductCart);
+      if (selectedProduct.includes(id))
+        setSeletedProduct((pre) => {
+          const newSelected = pre.filter((item) => item != id);
+          return newSelected;
+        });
     } else {
       deleteCart.mutate(id);
     }
@@ -189,6 +198,7 @@ const CartCustom = () => {
             onClick={() => {
               handleSaveValue(index);
             }}
+            loading={update.isLoading}
           />
           <Button
             icon={<DeleteOutlined />}
@@ -197,6 +207,7 @@ const CartCustom = () => {
               setDelCart(record.cartID);
               handleDeleteProduct(record.cartID);
             }}
+            loading={deleteCart.isLoading}
           />
         </div>
       ),
