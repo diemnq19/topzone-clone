@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import CustomLayout from "../../components/customLayout";
-import CustomSlider from "../../components/customSlider";
-import MenuCard from "../../components/menuCard";
-import ProductSlider from "../../components/productSlider";
-import Policy from "../../components/policy";
-import { getBrand } from "../../api/product";
+import CustomLayout from "../../../components/customLayout";
+import CustomSlider from "../../../components/customSlider";
+import MenuCard from "../../../components/menuCard";
+import ProductSlider from "../../../components/productSlider";
+import Policy from "../../../components/policy";
+import { getBrand } from "../../../api/product";
 import { useQuery } from "@tanstack/react-query";
 import { Spin } from "antd";
-import { getUserCart } from "../../api/cart";
+import { getUserCart } from "../../../api/cart";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import userAtom from "../../recoil/user";
+import userAtom from "../../../recoil/user";
 import Cookies from "js-cookie";
-import productCartAtom from "../../recoil/productCart";
-import { convertCartData } from "../../function/convertCartData";
+import productCartAtom from "../../../recoil/productCart";
+import { convertCartData } from "../../../function/convertCartData";
 
 const getBrands = async () => {
   const res = await getBrand();

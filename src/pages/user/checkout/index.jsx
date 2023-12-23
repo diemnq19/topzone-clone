@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import CustomLayout from "../../components/customLayout";
+import CustomLayout from "../../../components/customLayout";
 import { Button, Form, Input, Select, Table, message } from "antd";
 import { useRecoilState, useRecoilValue } from "recoil";
-import productCartAtom from "../../recoil/productCart";
-import userAtom from "../../recoil/user";
-import productSelectAtom from "../../recoil/selectedProduct";
-import { createOrder } from "../../api/order";
+import productCartAtom from "../../../recoil/productCart";
+import userAtom from "../../../recoil/user";
+import productSelectAtom from "../../../recoil/selectedProduct";
+import { createOrder } from "../../../api/order";
 import { useNavigate } from "react-router-dom";
-import { calculateTotalPrice } from "../../function/calculateTotalPrice";
-import { convertOrdeData, returnCart } from "../../function/convertCartData";
+import { calculateTotalPrice } from "../../../function/calculateTotalPrice";
+import { convertOrdeData, returnCart } from "../../../function/convertCartData";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
 const options = [

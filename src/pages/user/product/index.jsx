@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import CustomLayout from "../../components/customLayout";
+import CustomLayout from "../../../components/customLayout";
 import { Button, Image, InputNumber, Spin } from "antd";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../../api/product";
+import { getProduct } from "../../../api/product";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
-import productCartAtom from "../../recoil/productCart";
-import userAtom from "../../recoil/user";
-import { addProduct, removeProduct } from "../../api/cart";
+import productCartAtom from "../../../recoil/productCart";
+import userAtom from "../../../recoil/user";
+import { addProduct, removeProduct } from "../../../api/cart";
 import Cookies from "js-cookie";
 import {
   addResCartData,
   findCartIDByProductID,
-} from "../../function/convertCartData";
+} from "../../../function/convertCartData";
 import { FacebookOutlined } from "@ant-design/icons";
 
 const getProductDetail = async (id) => {
@@ -144,6 +144,7 @@ const Product = () => {
                   type="primary"
                   className="ml-4 bg-cyan-700 border-transparent shadow-none hover:!bg-cyan-400"
                   onClick={handleChangeCart}
+                  loading={addProductFnc.isLoading || removeProductFnc.isLoading}
                 >
                   {cart.findIndex((item) => item.product.id == productID) !== -1
                     ? "Remove from cart"

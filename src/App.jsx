@@ -9,15 +9,15 @@ import {
 } from "react-router-dom";
 import { Suspense } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Home from "./pages/home";
 import ErrorPage from "./pages/error";
-import Login from "./pages/login";
-import Register from "./pages/register";
 import Admin from "./pages/admin";
-import ProductType from "./pages/productType";
-import Product from "./pages/product";
-import CartCustom from "./pages/cart";
-import Checkout from "./pages/checkout";
+import Home from "./pages/user/home";
+import Login from "./pages/user/login";
+import Register from "./pages/user/register";
+import ProductType from "./pages/user/productType";
+import Product from "./pages/user/product";
+import CartCustom from "./pages/user/cart";
+import Checkout from "./pages/user/checkout";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import configs from "./config";
 
