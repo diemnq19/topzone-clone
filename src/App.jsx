@@ -67,6 +67,7 @@ const router = createBrowserRouter(
       <Route path="/watch/:id" element={<Product />} />
       <Route path="/cart" element={<CartCustom />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/product" element={<ProductType />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )

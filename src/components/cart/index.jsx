@@ -70,6 +70,7 @@ const Cart = () => {
           icon={<ShoppingCartOutlined />}
           shape="squared"
           size={"large"}
+          className="hover:!bg-white/20"
         />
       </Badge>
     </Popover>
