@@ -56,7 +56,8 @@ const UserControl = () => {
           <Dropdown menu={{ items }}>
             <Avatar
               icon={<UserOutlined />}
-              className="cursor-pointer text-xl"
+              className="cursor-pointer text-xl hover:!bg-white/20 pt-1"
+              size={"large"}
             />
           </Dropdown>
         </div>

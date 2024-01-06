@@ -91,6 +91,7 @@ const FormLogin = () => {
             htmlType="submit"
             size="large"
             className="bg-dark-bg-color w-1/2 font-semibold tracking-widest"
+            loading={loading}
           >
             Login
           </Button>
