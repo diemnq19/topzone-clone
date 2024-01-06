@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { calculateTotalPrice } from "../../../function/calculateTotalPrice";
 import { convertOrdeData, returnCart } from "../../../function/convertCartData";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import Cookies from "js-cookie";
 
 const options = [
   {
@@ -90,6 +91,7 @@ const Checkout = () => {
   const [cart, setCart] = useRecoilState(productCartAtom);
   const [form] = Form.useForm();
   const user = useRecoilValue(userAtom);
+  const isAuthen = !!Cookies.get('token')
   const [productSelect, setProductSelect] = useRecoilState(productSelectAtom);
   const navigate = useNavigate();
   const [optionValue, setOptionValue] = useState(!!user.id ? 1 : 2);
@@ -105,7 +107,7 @@ const Checkout = () => {
   const cartOrder = convertOrdeData(productSelect, cart);
 
   const handleSubmit = async (values) => {
-    if (!success) return message.error("Please purchase the product");
+    if (!success && !isAuthen) return message.error("Please purchase the product");
     try {
       const res = await createOrder({
         ...values,
@@ -134,7 +136,7 @@ const Checkout = () => {
             quantity: product.quantity,
             unit_amount: {
               currency_code: "USD",
-              value: product.product.price,
+              value: calculateTotalPrice(productSelect, cart),
             },
           })),
           amount: {

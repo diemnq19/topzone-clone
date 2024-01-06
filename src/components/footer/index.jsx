@@ -12,7 +12,7 @@ const CustomFooter = () => {
   return (
     <Footer className="min-h-[200px] bg-normal-bg-color">
       <div className="flex max-w-[1280px] mx-auto pt-16 text-white justify-between">
-        <div className="w-80 bg-topzone-image bg-no-repeat bg-contain min-h-[190px]"></div>
+        <div className="w-80 bg-logo-image bg-no-repeat bg-contain min-h-[190px]"></div>
         <div className="text-base">
           <h2 className="text-lg mb-2">Contact infomation:</h2>
           <ul>
@@ -30,19 +30,14 @@ const CustomFooter = () => {
           <h2 className="text-lg mb-2">Social</h2>
           <ul className="text-xl">
             <li className="flex items-baseline pb-1">
-              <a>
+              <a href="https://web.facebook.com/nqd.1903">
                 <FacebookOutlined /> <span className="text-base">Facebook</span>
               </a>
             </li>
             <li className="flex items-baseline pb-1">
-              <a>
+              <a href="https://www.instagram.com/dim_nq">
                 <InstagramOutlined />{" "}
                 <span className="text-base">Instagram</span>
-              </a>
-            </li>
-            <li className="flex items-baseline pb-1">
-              <a>
-                <TwitterOutlined /> <span className="text-base">Twitter</span>
               </a>
             </li>
           </ul>

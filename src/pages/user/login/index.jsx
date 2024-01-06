@@ -9,7 +9,7 @@ const Login = () => {
         <FormLogin />
       </div>
       <div className="w-1/2 mr-4">
-        <div className="bg-topzone-image bg-no-repeat bg-contain min-h-[190px] bg-right"></div>
+        <div className="bg-logo-image bg-no-repeat bg-contain min-h-[190px] bg-center"></div>
       </div>
     </div>
   );

@@ -32,8 +32,8 @@ const ProductSlider = ({ data }) => {
         <h2>{data.name}</h2>
       </div>
       <Carousel
-        // slidesToShow={4}
-        // slidesToScroll={4}
+        slidesToShow={4}
+        slidesToScroll={4}
         arrows
         prevArrow={<LeftOutlined />}
         nextArrow={<RightOutlined />}
