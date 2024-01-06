@@ -12,7 +12,7 @@ const CustomHeader = () => {
     <Header className="bg-dark-bg-color px-4 sticky top-0 z-[999]">
       <div className="flex items-center justify-between mx-auto max-w-[1280px] h-full">
         {/* logo */}
-        <div className="bg-logo-image bg-no-repeat bg-left-top bg-cover h-12 w-32 cursor-pointer" onClick={() => navigate("/")}></div>
+        <div className="bg-logo-image bg-no-repeat bg-center bg-cover h-12 w-32 cursor-pointer" onClick={() => navigate("/")}></div>
         {/* menu */}
         <Menu />
         {/* cart & user control */}

@@ -2,15 +2,16 @@ import { ConfigProvider as AntdConfigProvider } from "antd";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  redirect,
 } from "react-router-dom";
 import { Suspense } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ErrorPage from "./pages/error";
-import Admin from "./pages/admin";
 import Home from "./pages/user/home";
 import Login from "./pages/user/login";
 import Register from "./pages/user/register";
@@ -20,6 +21,9 @@ import CartCustom from "./pages/user/cart";
 import Checkout from "./pages/user/checkout";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import configs from "./config";
+import AdminAuth from "./pages/admin/auth";
+import Admin from "./pages/admin";
+import Cookies from "js-cookie";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,10 +35,21 @@ const queryClient = new QueryClient({
   },
 });
 
+const isAdminAuthen = !!Cookies.get("admin-token");
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={<Admin />}>
+        <Route
+          path="auth"
+          element={isAdminAuthen ? <Admin /> : <AdminAuth />}
+        />
+        <Route
+          index
+          element={isAdminAuthen ? <Admin /> : <Navigate to="auth" />}
+        />
+      </Route>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
