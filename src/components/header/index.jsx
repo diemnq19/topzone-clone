@@ -19,6 +19,7 @@ const CustomHeader = () => {
 
   const handleSearch = (value) => {
     if (value === "") return;
+    setOpen(!open)
     navigate(`/product?q=${encodeURI(value)}`)
   };
 
