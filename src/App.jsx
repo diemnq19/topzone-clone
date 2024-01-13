@@ -24,6 +24,10 @@ import configs from "./config";
 import AdminAuth from "./pages/admin/auth";
 import Admin from "./pages/admin";
 import Cookies from "js-cookie";
+import Account from "./pages/user/account";
+import Info from "./pages/user/account/info";
+import Password from "./pages/user/account/password";
+import Purchase from "./pages/user/purchase";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,6 +72,12 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartCustom />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/product" element={<ProductType />} />
+      <Route path="/account" element={<Account />}>
+        <Route path="" element={<Info />} />
+        <Route path="password" element={<Password />} />
+        <Route path="*" element={<Navigate to={"/account"} />} />
+      </Route>
+      <Route path="/purchase" element={<Purchase />}/>
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
@@ -96,6 +106,9 @@ const theme = {
       rowSelectedBg: "rgba(0, 0, 0, 0.2)",
       rowSelectedHoverBg: "rgba(0, 0, 0, 0.4)",
     },
+    Menu: {
+      itemSelectedColor: "#fff",
+    }
   },
 };
 
