@@ -102,82 +102,84 @@ const Product = () => {
       </CustomLayout>
     );
 
-  if (isError) return error;
-
   return (
     <CustomLayout>
       <div className="w-full">
         <div className="w-full max-w-[1280px] mx-auto pt-40">
-          <div className="flex w-full gap-4">
-            <div className="w-[30%] min-w-[300px] rounded-lg bg-dark-bg-color">
-              <Image
-                src={product.image_url}
-                width={"100%"}
-                className="rounded-lg py-4"
-              />
-            </div>
-            <div className="ml-10">
-              <h2 className="text-2xl text-white">
-                {product.name.toUpperCase()}
-              </h2>
-              <p className="mt-4 text-white/80">{product.description}</p>
-              <p className="mt-4 text-red-400">
-                Price:{" "}
-                {Number(product.percent_discount) !== 0 ? (
-                  <>
-                    <span className="line-through mr-2">{product.price}</span>
-                    <span>
-                      {product.price -
-                        (product.price * Number(product.percent_discount)) /
-                          100}
-                    </span>
-                  </>
-                ) : (
-                  product.price
-                )}
-                {product.unit}
-              </p>
-              <div className="mt-4">
-                <InputNumber
-                  min={1}
-                  className="w-40 py-2"
-                  value={quantity}
-                  onChange={handleChange}
+          {isError && <p className="text-white">Something went wrong, please try again later</p>}
+          {!isError && (
+            <div className="flex w-full gap-4">
+              <div className="w-[30%] min-w-[300px] rounded-lg bg-dark-bg-color">
+                <Image
+                  src={product.image_url}
+                  width={"100%"}
+                  className="rounded-lg py-4"
                 />
-                <Button
-                  size="large"
-                  type="primary"
-                  className="ml-4 bg-cyan-700 border-transparent shadow-none hover:!bg-cyan-400"
-                  onClick={handleChangeCart}
-                  loading={
-                    addProductFnc.isLoading || removeProductFnc.isLoading
-                  }
-                >
-                  {cart.findIndex((item) => item.product.id == productID) !== -1
-                    ? "Remove from cart"
-                    : "Add to cart"}
-                </Button>
               </div>
-
-              <div
-                className="fb-share-button mt-4 text-white bg-blue-600 w-fit p-2 rounded-lg flex items-center gap-2"
-                data-href={`${window.location.href}`}
-                data-layout=""
-                data-size=""
-              >
-                <div className="text-xl">
-                  <FacebookOutlined />
+              <div className="ml-10">
+                <h2 className="text-2xl text-white">
+                  {product.name.toUpperCase()}
+                </h2>
+                <p className="mt-4 text-white/80">{product.description}</p>
+                <p className="mt-4 text-red-400">
+                  Price:{" "}
+                  {Number(product.percent_discount) !== 0 ? (
+                    <>
+                      <span className="line-through mr-2">{product.price}</span>
+                      <span>
+                        {product.price -
+                          (product.price * Number(product.percent_discount)) /
+                            100}
+                      </span>
+                    </>
+                  ) : (
+                    product.price
+                  )}
+                  {product.unit}
+                </p>
+                <div className="mt-4">
+                  <InputNumber
+                    min={1}
+                    className="w-40 py-2"
+                    value={quantity}
+                    onChange={handleChange}
+                  />
+                  <Button
+                    size="large"
+                    type="primary"
+                    className="ml-4 bg-cyan-700 border-transparent shadow-none hover:!bg-cyan-400"
+                    onClick={handleChangeCart}
+                    loading={
+                      addProductFnc.isLoading || removeProductFnc.isLoading
+                    }
+                  >
+                    {cart.findIndex((item) => item.product.id == productID) !==
+                    -1
+                      ? "Remove from cart"
+                      : "Add to cart"}
+                  </Button>
                 </div>
-                <a
-                  target="_blank"
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
-                  className="fb-xfbml-parse-ignore"
+
+                <div
+                  className="fb-share-button mt-4 text-white bg-blue-600 w-fit p-2 rounded-lg flex items-center gap-2"
+                  data-href={`${window.location.href}`}
+                  data-layout=""
+                  data-size=""
                 >
-                  Share on Facebook
-                </a>
+                  <div className="text-xl">
+                    <FacebookOutlined />
+                  </div>
+                  <a
+                    target="_blank"
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                    className="fb-xfbml-parse-ignore"
+                  >
+                    Share on Facebook
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </CustomLayout>

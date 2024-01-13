@@ -96,7 +96,7 @@ const ProductType = () => {
           </div>
           {/* product */}
           <Spin spinning={isLoading}>
-            <div className="flex flex-wrap gap-4 min-h-[360px]">
+            <div className="flex flex-wrap justify-around gap-4 min-h-[360px]">
               {isError && <p>Something went wrong! Please try again later</p>}
               {ProductData && ProductData?.data?.length === 0 && (
                 <p className="text-xl text-white">No products were found!</p>
