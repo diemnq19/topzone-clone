@@ -40,6 +40,7 @@ const queryClient = new QueryClient({
 });
 
 const isAdminAuthen = !!Cookies.get("admin-token");
+const isAuthen = !!Cookies.get("token");
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -72,12 +73,18 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartCustom />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/product" element={<ProductType />} />
-      <Route path="/account" element={<Account />}>
+      <Route
+        path="/account"
+        element={isAuthen ? <Account /> : <Navigate to="/" />}
+      >
         <Route path="" element={<Info />} />
         <Route path="password" element={<Password />} />
         <Route path="*" element={<Navigate to={"/account"} />} />
       </Route>
-      <Route path="/purchase" element={<Purchase />}/>
+      <Route
+        path="/purchase"
+        element={isAuthen ? <Purchase /> : <Navigate to="/" />}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
@@ -108,7 +115,7 @@ const theme = {
     },
     Menu: {
       itemSelectedColor: "#fff",
-    }
+    },
   },
 };
 

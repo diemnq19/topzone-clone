@@ -91,7 +91,7 @@ const Checkout = () => {
   const [cart, setCart] = useRecoilState(productCartAtom);
   const [form] = Form.useForm();
   const user = useRecoilValue(userAtom);
-  const isAuthen = !!Cookies.get('token')
+  const isAuthen = !!Cookies.get("token");
   const [productSelect, setProductSelect] = useRecoilState(productSelectAtom);
   const navigate = useNavigate();
   const [optionValue, setOptionValue] = useState(!!user.id ? 1 : 2);
@@ -107,12 +107,14 @@ const Checkout = () => {
   const cartOrder = convertOrdeData(productSelect, cart);
 
   const handleSubmit = async (values) => {
-    if (!success && !isAuthen) return message.error("Please purchase the product");
+    if (!success && !isAuthen)
+      return message.error("Please purchase the product");
     try {
       const res = await createOrder({
         ...values,
         order_status: !!orderPayPalID ? "paid" : "pending",
-        shopping_cart_list: JSON.stringify(productSelect),
+        shopping_carts: JSON.stringify(productSelect),
+        user_id: user.id,
       });
       message.success("Create order success");
       if (!user.id) {
@@ -127,7 +129,7 @@ const Checkout = () => {
   };
 
   const createOrderPaypal = async (data, actions) => {
-    const orderID = await actions.order.create({
+    const dataPayload = {
       purchase_units: [
         {
           items: cartOrder.map((product) => ({
@@ -136,7 +138,11 @@ const Checkout = () => {
             quantity: product.quantity,
             unit_amount: {
               currency_code: "USD",
-              value: calculateTotalPrice(productSelect, cart),
+              value:
+                (product.quantity *
+                  product.product.price *
+                  (100 - product.product.percent_discount * 1)) /
+                100,
             },
           })),
           amount: {
@@ -152,7 +158,8 @@ const Checkout = () => {
           description: "Buy product",
         },
       ],
-    });
+    };
+    const orderID = await actions.order.create(dataPayload);
     setOrderPaypalID(orderID);
     return orderID;
   };
