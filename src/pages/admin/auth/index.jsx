@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React from "react";
 import { login } from "../../../api/auth";
 import { useNavigate } from "react-router-dom";
@@ -21,15 +21,19 @@ const AdminAuth = () => {
     mutationKey: ["admin-login"],
     mutationFn: async (payload) => await login(payload),
     onSuccess: (res) => {
-      Cookies.set("admin-token", res.data.token);
-      setAdmin(res.data.user);
-      navigate("/auth");
+      if (res.data.is_admin) {
+        Cookies.set("admin-token", res.data.token);
+        setAdmin(res.data.user);
+        navigate("/admin/product");
+      } else message.error("Login failed")
     },
+    onError: (error) => message.error(error.response.data.message)
   });
 
   const onFinish = (values) => {
     loginFnc.mutate(values);
   };
+  if(!!Cookies.get('admin-token')) return navigate("/admin/product")
 
   return (
     <div className="w-full h-[100vh] flex items-center justify-center bg-slate-200">

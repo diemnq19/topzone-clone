@@ -28,6 +28,7 @@ import Account from "./pages/user/account";
 import Info from "./pages/user/account/info";
 import Password from "./pages/user/account/password";
 import Purchase from "./pages/user/purchase";
+import AdminHome from "./pages/admin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,16 +46,19 @@ const isAuthen = !!Cookies.get("token");
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/admin" element={<Admin />}>
-        <Route
-          path="auth"
-          element={isAdminAuthen ? <Admin /> : <AdminAuth />}
-        />
-        <Route
-          index
-          element={isAdminAuthen ? <Admin /> : <Navigate to="auth" />}
-        />
-      </Route>
+      <Route
+        path="/admin"
+        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
+      ></Route>
+      <Route
+        path="/admin/product"
+        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
+      />
+      <Route
+        path="/admin/order"
+        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
+      />
+      <Route path="/admin/auth" element={<AdminAuth />} />
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
