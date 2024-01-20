@@ -9,7 +9,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `Bearer ${Cookies.get("token") || Cookies.get('admin-token')}`;
+    config.headers.Authorization = `Bearer ${
+      window.location.pathname.includes("admin")
+        ? Cookies.get("admin-token")
+        : Cookies.get("token")
+    }`;
     return config;
   },
   (error) => Promise.reject(error)
@@ -28,9 +32,7 @@ export const sendGet = (url, params) =>
   axiosInstance.get(url, { params }).then((res) => res);
 
 export const sendPost = (url, params, queryParams) =>
-  axiosInstance
-    .post(url, params, { params: queryParams })
-    .then((res) => res);
+  axiosInstance.post(url, params, { params: queryParams }).then((res) => res);
 
 export const sendPut = (url, params) =>
   axiosInstance.put(url, params).then((res) => res);
