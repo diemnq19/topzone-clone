@@ -24,7 +24,7 @@ const AdminAuth = () => {
       if (res.data.is_admin) {
         Cookies.set("admin-token", res.data.token);
         setAdmin(res.data.user);
-        navigate("/admin/product");
+        navigate("/admin");
       } else message.error("Login failed")
     },
     onError: (error) => message.error(error.response.data.message)

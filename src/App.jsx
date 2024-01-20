@@ -28,7 +28,6 @@ import Account from "./pages/user/account";
 import Info from "./pages/user/account/info";
 import Password from "./pages/user/account/password";
 import Purchase from "./pages/user/purchase";
-import AdminHome from "./pages/admin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,60 +38,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-const isAdminAuthen = !!Cookies.get("admin-token");
-const isAuthen = !!Cookies.get("token");
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route
-        path="/admin"
-        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
-      ></Route>
-      <Route
-        path="/admin/product"
-        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
-      />
-      <Route
-        path="/admin/order"
-        element={isAdminAuthen ? <AdminHome /> : <Navigate to="/admin/auth" />}
-      />
-      <Route path="/admin/auth" element={<AdminAuth />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/iphone" element={<ProductType />} />
-      <Route path="/ipad" element={<ProductType />} />
-      <Route path="/mac" element={<ProductType />} />
-      <Route path="/sound" element={<ProductType />} />
-      <Route path="/accessory" element={<ProductType />} />
-      <Route path="/watch" element={<ProductType />} />
-      <Route path="/iphone/:id" element={<Product />} />
-      <Route path="/ipad/:id" element={<Product />} />
-      <Route path="/mac/:id" element={<Product />} />
-      <Route path="/sound/:id" element={<Product />} />
-      <Route path="/accessory/:id" element={<Product />} />
-      <Route path="/watch/:id" element={<Product />} />
-      <Route path="/cart" element={<CartCustom />} />
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/product" element={<ProductType />} />
-      <Route
-        path="/account"
-        element={isAuthen ? <Account /> : <Navigate to="/" />}
-      >
-        <Route path="" element={<Info />} />
-        <Route path="password" element={<Password />} />
-        <Route path="*" element={<Navigate to={"/account"} />} />
-      </Route>
-      <Route
-        path="/purchase"
-        element={isAuthen ? <Purchase /> : <Navigate to="/" />}
-      />
-      <Route path="*" element={<ErrorPage />} />
-    </Route>
-  )
-);
 
 const theme = {
   token: {
@@ -124,6 +69,56 @@ const theme = {
 };
 
 function App() {
+  const isAdminAuthen = !!Cookies.get("admin-token");
+  const isAuthen = !!Cookies.get("token");
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route
+          path="/admin"
+          element={isAdminAuthen ? <Admin /> : <Navigate to="/admin/auth" />}
+        >
+          <Route path="product" element={<Admin />} />
+          <Route path="order" element={<Admin />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+        <Route path="/admin/auth" element={<AdminAuth />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/iphone" element={<ProductType />} />
+        <Route path="/ipad" element={<ProductType />} />
+        <Route path="/mac" element={<ProductType />} />
+        <Route path="/sound" element={<ProductType />} />
+        <Route path="/accessory" element={<ProductType />} />
+        <Route path="/watch" element={<ProductType />} />
+        <Route path="/iphone/:id" element={<Product />} />
+        <Route path="/ipad/:id" element={<Product />} />
+        <Route path="/mac/:id" element={<Product />} />
+        <Route path="/sound/:id" element={<Product />} />
+        <Route path="/accessory/:id" element={<Product />} />
+        <Route path="/watch/:id" element={<Product />} />
+        <Route path="/cart" element={<CartCustom />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/product" element={<ProductType />} />
+        <Route
+          path="/account"
+          element={isAuthen ? <Account /> : <Navigate to="/" />}
+        >
+          <Route path="" element={<Info />} />
+          <Route path="password" element={<Password />} />
+          <Route path="*" element={<Navigate to={"/account"} />} />
+        </Route>
+        <Route
+          path="/purchase"
+          element={isAuthen ? <Purchase /> : <Navigate to="/" />}
+        />
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+    )
+  );
+  
   return (
     <PayPalScriptProvider
       options={{ clientId: configs.CLIENT_ID, currency: "USD" }}
