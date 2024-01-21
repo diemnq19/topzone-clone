@@ -124,6 +124,10 @@ const Product = () => {
         footer={false}
         className="p-10"
         title="New product"
+        centered
+        styles={{
+          width: '640px'
+        }}
       >
         <AddProductForm setOpen={setOpen} refetch={refetch} />
       </Modal>
